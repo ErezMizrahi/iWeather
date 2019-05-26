@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D6A1CA1229B119E00383179 /* AppLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6A1CA0229B119E00383179 /* AppLocationTracker.swift */; };
 		6DBE36B622996289000BE67A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE36B522996289000BE67A /* AppDelegate.swift */; };
 		6DBE36B822996289000BE67A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBE36B722996289000BE67A /* ViewController.swift */; };
 		6DBE36BB22996289000BE67A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DBE36B922996289000BE67A /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D6A1CA0229B119E00383179 /* AppLocationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationTracker.swift; sourceTree = "<group>"; };
 		6DBE36B222996289000BE67A /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBE36B522996289000BE67A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DBE36B722996289000BE67A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				6DBE36CE22996ABA000BE67A /* Forecast.swift */,
+				6D6A1CA0229B119E00383179 /* AppLocationTracker.swift */,
 			);
 			path = Modle;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DBE36D222996D0D000BE67A /* APIManger.swift in Sources */,
+				6D6A1CA1229B119E00383179 /* AppLocationTracker.swift in Sources */,
 				6DBE36CC22996649000BE67A /* DailyForecastTableViewCell.swift in Sources */,
 				6DBE36D422999508000BE67A /* SplashScreenViewController.swift in Sources */,
 				6DBE36B822996289000BE67A /* ViewController.swift in Sources */,

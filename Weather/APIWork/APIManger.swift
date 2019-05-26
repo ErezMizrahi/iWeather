@@ -22,20 +22,21 @@ class APIManger {
     
     var baseURL : URL {
         get {
-             guard let url = URL(string: "https://api.darksky.net/forecast/f219517316820aafdb86f1ef2a88000f/42.3601,-71.0589") else { fatalError() }
+             guard let url = URL(string: "https://api.darksky.net/forecast/f219517316820aafdb86f1ef2a88000f/") else { fatalError() }
             return url
         }
     }
     
-    func apiResponse(  _ complition : ((_ callback: [Forecast]?, _ err : Error?) -> Void)?) {
+    func apiResponse( lat : Double, lon : Double, _ complition : ((_ callback: [Forecast]?, _ err : Error?) -> Void)?) {
      
-
-        URLSession.shared.dataTask(with: baseURL) { (data, _, err) in
+        guard let url = URL(string: "\(baseURL)\(lat),\(lon)" ) else { return }
+        URLSession.shared.dataTask(with: url) { (data, _, err) in
             print("started")
 
-            if err != nil {
-                print(err)
+            if let err = err {
+                print(err.localizedDescription)
                 complition?(nil, err)
+                return
             }
             guard let data = data else { return }
             print(data)

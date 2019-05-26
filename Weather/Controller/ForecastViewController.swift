@@ -10,19 +10,29 @@ import UIKit
 import CoreLocation
 
 class ForecastViewController: UITableViewController {
-    var forecastArray : [Forecast]?
-//    var lat : CLLocationDegrees? = CLLocationDegrees(exactly32.1356135)
-//    var lon : CLLocationDegrees? = CLLocationDegrees(exactly: 34.8458495)
+    var forecastArray : [Forecast] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        guard let lat = lat else { return }
-//        guard let lon = lon else { return }
-//        print(lat , lon)
-//32.1356135,34.8458495
-        APIManger.instance.apiResponse/*(lat: lat!, lon: lon!) */{[weak self] (arr,err) in
+       
+        if let location = AppLocationTracker.shared.currentLocation{
+            getData(with: location)
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.locationUpdated, object: nil, queue: .main) { [weak self](_) in
+            if let location = AppLocationTracker.shared.currentLocation{
+                self?.getData(with: location)
+            }
+        }
+    }
+    
+    private func getData(with location : CLLocation){
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        
+        APIManger.instance.apiResponse(lat: lat, lon: lon){[weak self] (arr,err) in
             guard let strongSelf = self else { return }
-            strongSelf.forecastArray = arr
+            strongSelf.forecastArray = arr ?? []
             
             DispatchQueue.main.async {
                 strongSelf.tableView.reloadData()
@@ -43,14 +53,14 @@ class ForecastViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return forecastArray?[0].daily?.data?.count ?? 0
+        return forecastArray.first?.daily?.data?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DailyForecastTableViewCell
 
-        let daily = forecastArray?[0].daily?.data?[indexPath.row]
+        let daily = forecastArray[0].daily?.data?[indexPath.row]
         
         let date = Date(timeIntervalSince1970: Double((daily?.time)!))
         let formatter = DateFormatter()
