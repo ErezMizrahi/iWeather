@@ -11,6 +11,7 @@ import Foundation
 class APIManger {
     
     public static let instance = APIManger()
+    var obj : Forecast?
     
     private init() {}
     
@@ -27,7 +28,7 @@ class APIManger {
         }
     }
     
-    func apiResponse( lat : Double, lon : Double, _ complition : ((_ callback: [Forecast]?, _ err : Error?) -> Void)?) {
+    func apiResponse( lat : Double, lon : Double, _ complition : ((_ callback: Forecast?, _ err : Error?) -> Void)?) {
      
         guard let url = URL(string: "\(baseURL)\(lat),\(lon)" ) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, err) in
@@ -43,7 +44,8 @@ class APIManger {
             do {
                 let decoder = try JSONDecoder().decode(Forecast.self, from: data)
                 print(decoder)
-                complition?([decoder], nil)
+                self.obj = decoder
+                complition?(decoder, nil)
             } catch {
                 print(error)
             }
@@ -52,4 +54,6 @@ class APIManger {
     
     
     }
+    
+    
 }

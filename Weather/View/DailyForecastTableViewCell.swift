@@ -12,16 +12,31 @@ class DailyForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var forecastImageView: UIImageView!
+    
+    var viewModel : iViewModle! {
+        didSet {
+            if viewModel.tempHigh == 0{
+                dayLabel.text = viewModel.time
+                tempLabel.text = "\(viewModel.temp) ºƒ"
+                forecastImageView?.image = viewModel.image
+                
+            }else {
+                dayLabel.text = viewModel.day
+                tempLabel.text = "\(viewModel.tempLow)-\(viewModel.tempHigh)ºƒ"
+                forecastImageView?.image = viewModel.image
+                
+            }
+           
+        }
+    }
+  
    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        forecastImageView.clipsToBounds = true
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+   
 
 }
