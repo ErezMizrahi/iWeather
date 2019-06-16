@@ -32,7 +32,6 @@ class APIManger {
      
         guard let url = URL(string: "\(baseURL)\(lat),\(lon)" ) else { return }
         URLSession.shared.dataTask(with: url) { (data, _, err) in
-            print("started")
 
             if let err = err {
                 print(err.localizedDescription)
@@ -40,11 +39,10 @@ class APIManger {
                 return
             }
             guard let data = data else { return }
-            print(data)
             do {
                 let decoder = try JSONDecoder().decode(Forecast.self, from: data)
-                print(decoder)
                 self.obj = decoder
+                
                 complition?(decoder, nil)
             } catch {
                 print(error)

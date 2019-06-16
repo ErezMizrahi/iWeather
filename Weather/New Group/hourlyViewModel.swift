@@ -9,24 +9,12 @@
 import UIKit
 
 struct hourlyViewModel : iViewModle {
-    var day: String
-    
-    var tempHigh: Int
-    
-    var tempLow: Int
-    
-  
+    var title: String
     var image: UIImage
-    
-    var time: String
-    var temp : Int
+    var temp : (Int,Int)
     
     static func formate(_ date : Date) -> String {
         return "\(String(Calendar.current.component(.hour, from: date))):00"
-        
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "EEEE"
-//        return formatter.string(for: date) ?? ""
     }
 
 }
@@ -35,11 +23,8 @@ extension hourlyViewModel {
     init?(forecastInfo : Currently) {
         
         let date = Date(timeIntervalSince1970: TimeInterval(forecastInfo.time!))
-        self.time = hourlyViewModel.formate(date)
-        self.temp = Int(forecastInfo.temperature!)
+        self.title = hourlyViewModel.formate(date)
+        self.temp = (Int(forecastInfo.temperature!),0)
         self.image = UIImage(named: forecastInfo.icon!) ?? UIImage()
-        self.tempLow = 0
-        self.tempHigh = 0
-        self.day = ""
     }
 }

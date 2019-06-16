@@ -17,8 +17,7 @@ class ForecastViewController: UIViewController {
         case minutely
         
         var bl : iWeatherBL {
-        
-            var forecast = APIManger.instance.obj
+            let forecast = APIManger.instance.obj
             switch self {
             case .daily:
                 let viewModel = forecast?.daily?.data?.compactMap(DailyForecastViewModle.init) ?? []
@@ -31,33 +30,23 @@ class ForecastViewController: UIViewController {
         }
     }
     
-    var bl : iWeatherBL?
-    
-    func chooseMode (with mode : Mode){
-        bl = nil
-        self.tableView.reloadData()
-        
-        let newMode = mode.bl
-        self.arrOfViewModles = newMode.viewModle
-        
-
-    }
+  
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var bl : iWeatherBL?
     var forecast : Forecast?
     var arrOfViewModles : [iViewModle] = [] {
         didSet {
             if arrOfViewModles.count > 0 {
             tableView.reloadData()
-        }
+            }
         }
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
         getLocation()
     }
    
@@ -87,31 +76,25 @@ class ForecastViewController: UIViewController {
                 strongSelf.tableView.dataSource = strongSelf
                 
                 strongSelf.arrOfViewModles = viewModel
-
-            }
-            
+                            }
         }
     }
 
     
     @IBAction func userChoice(_ sender: UISegmentedControl) {
-        
         switch sender.selectedSegmentIndex {
-        case 0:
-
-            chooseMode(with: .daily)
-            break
-        case 1:
-
-            chooseMode(with: .hourly)
-            break
-            
+        case 0: chooseMode(with: .daily)
+        case 1: chooseMode(with: .hourly)
         default:
             break
         }
-        
     }
     
+    func chooseMode (with mode : Mode){        
+        let newMode = mode.bl
+        self.arrOfViewModles = newMode.viewModle
+
+    }
 }
 
 
@@ -122,17 +105,14 @@ extension ForecastViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-   
         return arrOfViewModles.count
     }
     
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DailyForecastTableViewCell
-        let modle = arrOfViewModles[indexPath.row]
-
-            cell.viewModel = modle
-
+       
+        cell.viewModel = arrOfViewModles[indexPath.row]
         
         return cell
     

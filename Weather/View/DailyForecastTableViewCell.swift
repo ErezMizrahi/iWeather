@@ -15,14 +15,14 @@ class DailyForecastTableViewCell: UITableViewCell {
     
     var viewModel : iViewModle! {
         didSet {
-            if viewModel.tempHigh == 0{
-                dayLabel.text = viewModel.time
-                tempLabel.text = "\(viewModel.temp) ºƒ"
+            if viewModel.temp.1 == 0{
+                dayLabel.text = viewModel.title
+                tempLabel.text = "\(viewModel.temp.0) ºƒ"
                 forecastImageView?.image = viewModel.image
                 
             }else {
-                dayLabel.text = viewModel.day
-                tempLabel.text = "\(viewModel.tempLow)-\(viewModel.tempHigh)ºƒ"
+                dayLabel.text = viewModel.title
+                tempLabel.text = "\(viewModel.temp.0)-\(viewModel.temp.1)ºƒ"
                 forecastImageView?.image = viewModel.image
                 
             }
